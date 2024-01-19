@@ -17,6 +17,8 @@ jobs:
         with:
           node-version: "20"
       - name: install dependencies
-        run: npm ci
+        run: |
+          npm ci
+          echo "Current directory: $(pwd)"
       - name: run tests
         run: npm test
