@@ -1,4 +1,4 @@
-name: Test Project
+name: Deploy Project
 on: push
 defaults:
   run:
@@ -19,3 +19,19 @@ jobs:
           npm ci
       - name: run tests
         run: npm test
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get code
+        # uses already configured action so we dont need to configure it again (getting a code is pretty common - no need to reinvent the wheel)
+        uses: actions/checkout@v3
+      - name: install nodejs
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+      - name: install dependencies
+        run: |
+          npm ci
+      - name: Build project
+        run: npm run build
