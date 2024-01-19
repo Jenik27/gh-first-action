@@ -1,5 +1,8 @@
 name: Test Project
 on: push
+defaults:
+  run:
+    working-directory: "02 Starting Project"
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -7,18 +10,12 @@ jobs:
       - name: Get code
         # uses already configured action so we dont need to configure it again (getting a code is pretty common - no need to reinvent the wheel)
         uses: actions/checkout@v3
-      - name: Go to project directory
-        # we need to go to the project directory to run the tests
-        run: |
-          cd "02 Starting Project"
-          echo "Current directory: $(pwd)"
       - name: install nodejs
         uses: actions/setup-node@v3
         with:
           node-version: "20"
       - name: install dependencies
         run: |
-          echo "Current directory: $(pwd)"
           npm ci
       - name: run tests
         run: npm test
